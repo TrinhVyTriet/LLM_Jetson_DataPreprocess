@@ -3,9 +3,9 @@ from typing import List
 from langchain_core.documents import Document
 
 from loaders.web_loader import WebLoader
-# from loaders.pdf_loader import PDFLoader
-# from loaders.txt_loader import TextLoader
-# from loaders.md_loader import MarkdownLoader
+from loaders.pdf_loader import PDFLoader
+from loaders.text_loader import TextLoader
+from loaders.markdown_loader import MarkdownLoader
 
 class Pipeline:
     def get_loader(self, source: str):
@@ -29,24 +29,24 @@ class Pipeline:
 
         raise ValueError(f"Unsupported source: {source}")
     
-    def save_raw_docs(self, raw_docs, path="raw_documents.json"):
-        data = [doc.to_json_serializable() for doc in raw_docs]
+    def save_cleaned_docs(self, clean_docs, path="cleaned_documents.json"):
+        data = [doc.to_json_serializable() for doc in clean_docs]
 
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
-    def run(self, input_path_or_url, cleaner, chunker, save_raw=True) -> List[Document]:
+    def run(self, input_path_or_url, cleaner, chunker, save_cleaned=True) -> List[Document]:
         # Chạy toàn bộ pipeline cho 1 source đầu vào
         # Load
         loader = self.get_loader(input_path_or_url)
         raw_docs = loader.load() # List[RawDocument] vì 1 source có thể tạo ra nhiều doc (ví dụ web loader có thể crawl nhiều trang)
 
-        # Save raw crawl data
-        if save_raw:
-            self.save_raw_docs(raw_docs)
-
         # Clean
         clean_docs = cleaner.clean(raw_docs)
+
+        # Save cleaned data
+        if save_cleaned:
+            self.save_cleaned_docs(clean_docs)
 
         # Chunk
         all_chunks = []

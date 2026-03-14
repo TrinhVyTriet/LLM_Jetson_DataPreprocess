@@ -14,9 +14,9 @@ class RawDocument:
     - Markdown
     """
     
-    doc_id: Optional[str] = None    # ID duy nhất của tài liệu, có thể tự sinh nếu không cung cấp
     source: str                     # URL hoặc file path
     content: str                    # Nội dung full text
+    doc_id: Optional[str] = None    # ID duy nhất của tài liệu, có thể tự sinh nếu không cung cấp
     title: Optional[str] = None
 
     # metadata sẽ chứa thông tin mở rộng

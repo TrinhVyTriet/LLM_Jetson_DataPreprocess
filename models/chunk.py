@@ -2,15 +2,14 @@ from dataclasses import dataclass
 from typing import Dict, Optional
 from langchain_core.documents import Document
 
-
 @dataclass
 class Chunk:
     # Đại diện cho một đoạn văn bản nhỏ (chunk) được tách ra từ RawDocument.
     doc_id: str
     chunk_id: str
+    content: str
     chunk_index: Optional[int] = None
 
-    content: str
     source: Optional[str] = None
     title: Optional[str] = None
 

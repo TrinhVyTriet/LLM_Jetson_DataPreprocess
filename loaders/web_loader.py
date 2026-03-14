@@ -6,9 +6,9 @@ from typing import List, Set
 import uuid
 
 from models.raw_document import RawDocument
-# from loaders.pdf_loader import PDFLoader
-# from loaders.text_loader import TextLoader
-# from loaders.markdown_loader import MarkdownLoader
+from loaders.pdf_loader import PDFLoader
+from loaders.text_loader import TextLoader
+from loaders.markdown_loader import MarkdownLoader
 
 class WebLoader:
     def __init__(self, homepage_url: str, max_pages = 50):
@@ -71,6 +71,7 @@ class WebLoader:
             parsed = urlparse(url)                                              # Phân tích URL để lấy các thành phần như scheme, netloc, path
             clean_url = parsed.scheme + "://" + parsed.netloc + parsed.path
             links.append(clean_url)
+            
         return links
     
     def _load_attachment(self, url: str) -> List[RawDocument]:
@@ -113,8 +114,8 @@ class WebLoader:
 
                 # Nếu là link tải về file đính kèm, load file đó và thêm vào documents
                 if (self._is_attachment(url)):
-                    docs = self._load_attachment(url)
-                    documents.extend(docs)
+                    #docs = self._load_attachment(url)
+                    #documents.extend(docs)
                     continue
 
                 soup = BeautifulSoup(html, "html.parser")
