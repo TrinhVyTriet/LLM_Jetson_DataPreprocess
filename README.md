@@ -31,8 +31,7 @@ The implemented pipeline works as follows:
 Input Source
      │
      ▼
-Loader / Crawler
-(WebLoader / PDFLoader / TextLoader / MarkdownLoader)
+Loader / Crawler (WebLoader / PDFLoader / TextLoader / MarkdownLoader)
      │
      ▼
 RawDocument
@@ -77,113 +76,150 @@ LangChain Document (Ready for embedding)
 The system supports multiple data sources for building the knowledge base.
 
 Supported Inputs:
-        Website (homepage URL)
-        PDF documents
-        TXT files
-        Markdown files
+
+```text
+Website (homepage URL)
+PDF documents
+TXT files
+Markdown files
+```
 
 All input sources are converted into a unified internal structure called RawDocument.
 
 ## 📄 RawDocument Structure
 ---
 Each document is stored in the following format:
-        {
-            "doc_id": "...",
-            "source": "...",
-            "title": "...",
-            "content": "...",
-            "metadata": {
-                "date": "...",
-                "language": "...",
-                "type": "web/pdf/text/markdown"
-            }
-        }
+
+```text
+{
+    "doc_id": "...",
+    "source": "...",
+    "title": "...",
+    "content": "...",
+    "metadata": {
+        "date": "...",
+        "language": "...",
+        "type": "web/pdf/text/markdown"
+    }
+}
+```
 
 ## 🌐 Web Crawler
 ---
 The WebLoader implements a Breadth-First Search (BFS) crawler to extract documents from a website.
 
 Features:
-    BFS crawling strategy
-    Internal link filtering
-    Duplicate URL detection
-    HTML parsing
-    Main content extraction
-    Automatic attachment detection
+
+```text
+BFS crawling strategy
+Internal link filtering
+Duplicate URL detection
+HTML parsing
+Main content extraction
+Automatic attachment detection
+```
 
 If the crawler encounters file links such as PDF, TXT or Markdown it will automatically delegate the loading process to the corresponding file loader.
 
 ## 📑 File Loaders
 ---
-    PDFLoader
-    TextLoader
-    MarkdownLoader
+The system includes several file loaders responsible for reading different document formats and converting them into a unified `RawDocument` structure.
 
-Extract content and output RawDocument object
+Supported loaders:
+
+```text
+PDFLoader
+TextLoader
+MarkdownLoader
+```
+
+Each loader extracts the document content and outputs a `RawDocument` object.
 
 ## 🧹 Text Cleaning
 ---
 Before the chunking stage, all documents are cleaned using the Cleaner module.
 
 Cleaning Steps:
-        1. Unicode Normalization
-        2. Remove HTML Noise
-        3. Whitespace Normalization
+
+```text
+1. Unicode Normalization
+2. Remove HTML Noise
+3. Whitespace Normalization
+```
 
 ## ✂️ Chunking
 ---
-    After cleaning, documents are split into smaller segments using the Chunker.
+After cleaning, documents are split into smaller segments using the Chunker.
 
-    Example Configuration:
-        chunk_size = 500
-        chunk_overlap = 50
+Example Configuration:
 
-    Chunk Structure:
-        Chunk (
-            doc_id
-            chunk_id
-            chunk_index
-            content
-            metadata
-        )
+```text
+chunk_size = 500
+chunk_overlap = 50
+```
 
-    Each chunk is then converted into a LangChain Document object.
+Chunk Structure:
+
+```text
+    Chunk (
+        doc_id
+        chunk_id
+        chunk_index
+        content
+        metadata
+    )
+```
+
+Each chunk is then converted into a LangChain Document object.
 
 ## 🚀 Running the Pipeline
 ---
-    The entire pipeline can be executed with:
-        python main.py
+The entire pipeline can be executed with:
 
-    Example Usage:
-        from pipeline import Pipeline
-        from cleaner import Cleaner
-        from chunker import Chunker
+```text
+python main.py
+```
 
-        pipeline = Pipeline()
+Example Usage:
 
-        documents = pipeline.run(
-            input_path_or_url="https://example.com",
-            cleaner=Cleaner(),
-            chunker=Chunker()
-        )
+```text
+from pipeline import Pipeline
+from cleaner import Cleaner
+from chunker import Chunker
 
-        print(len(documents))
+pipeline = Pipeline()
+
+documents = pipeline.run(
+    input_path_or_url="https://example.com",
+    cleaner=Cleaner(),
+    chunker=Chunker()
+)
+
+print(len(documents))
+```
 
 ## 📤 Output
 ---
-    The pipeline produces two types of outputs:
+The pipeline produces two types of outputs:
 
-    1. Cleaned Crawl Data (Saved as cleaned_documents.json):
-        {
-            "doc_id": "...",
-            "source": "...",
-            "title": "...",
-            "content": "...",
-            "metadata": {...}
-        }
+1. Cleaned Crawl Data
+Saved as cleaned_documents.json:
 
-    2. Chunk Documents
-        A list of LangChain Documents, ready for:
-            Embedding
-            Vector Database indexing
-            Information Retrieval
+```text
+{
+    "doc_id": "...",
+    "source": "...",
+    "title": "...",
+    "content": "...",
+    "metadata": {...}
+}
+```
+
+2. Chunk Documents
+A list of LangChain Documents, ready for:
+
+```text
+Embedding
+Vector Database indexing
+Information Retrieval
+```
