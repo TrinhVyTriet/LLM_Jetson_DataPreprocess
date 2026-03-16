@@ -4,11 +4,11 @@
 
 ## 📚 RAG Data Pipeline (Data Collection & Preprocessing)
 ---
-    This module implements the data ingestion and preprocessing pipeline for a Retrieval-Augmented Generation (RAG) system deployed on NVIDIA Jetson.
+This module implements the data ingestion and preprocessing pipeline for a Retrieval-Augmented Generation (RAG) system deployed on NVIDIA Jetson.
 
-    The pipeline collects documents from multiple sources, cleans the text, splits it into chunks, and prepares the data for embedding and vector database indexing.
+The pipeline collects documents from multiple sources, cleans the text, splits it into chunks, and prepares the data for embedding and vector database indexing.
 
-    This repository contains the implementation of the first two stages of the RAG pipeline.
+This repository contains the implementation of the first two stages of the RAG pipeline.
 
 ## 🧠 RAG System Architecture
 ---
@@ -20,8 +20,11 @@ The full system consists of three main phases:
 | **QUALITY PHASE (Evaluation)** | Evaluation → Feedback Loop |
 
 This repository implements:
-        Stage 1 → Data Collection
-        Stage 2 → Preprocessing & Chunking
+
+```text
+Stage 1 → Data Collection
+Stage 2 → Preprocessing & Chunking
+```
 
 ## 🏗 Pipeline Flow
 ---
@@ -84,7 +87,7 @@ TXT files
 Markdown files
 ```
 
-All input sources are converted into a unified internal structure called RawDocument.
+All input sources are converted into a unified internal structure called `RawDocument`.
 
 ## 📄 RawDocument Structure
 ---
@@ -106,7 +109,7 @@ Each document is stored in the following format:
 
 ## 🌐 Web Crawler
 ---
-The WebLoader implements a Breadth-First Search (BFS) crawler to extract documents from a website.
+The `WebLoader` implements a Breadth-First Search (BFS) crawler to extract documents from a website.
 
 Features:
 
@@ -119,13 +122,13 @@ Main content extraction
 Automatic attachment detection
 ```
 
-If the crawler encounters file links such as PDF, TXT or Markdown it will automatically delegate the loading process to the corresponding file loader.
+If the crawler encounters file links such as `PDF`, `TXT` or `Markdown` it will automatically delegate the loading process to the corresponding file loader.
 
 ## 📑 File Loaders
 ---
 The system includes several file loaders responsible for reading different document formats and converting them into a unified `RawDocument` structure.
 
-Supported loaders:
+Supported Loaders:
 
 ```text
 PDFLoader
@@ -149,18 +152,18 @@ Cleaning Steps:
 
 ## ✂️ Chunking
 ---
-After cleaning, documents are split into smaller segments using the Chunker.
+After cleaning, documents are split into smaller segments using the `Chunker`.
 
 Example Configuration:
 
-```text
+```python
 chunk_size = 500
 chunk_overlap = 50
 ```
 
 Chunk Structure:
 
-```text
+```python
     Chunk (
         doc_id
         chunk_id
@@ -170,19 +173,19 @@ Chunk Structure:
     )
 ```
 
-Each chunk is then converted into a LangChain Document object.
+Each chunk is then converted into a `LangChain Document` object.
 
 ## 🚀 Running the Pipeline
 ---
 The entire pipeline can be executed with:
 
-```text
+```python
 python main.py
 ```
 
 Example Usage:
 
-```text
+```python
 from pipeline import Pipeline
 from cleaner import Cleaner
 from chunker import Chunker
@@ -205,7 +208,7 @@ The pipeline produces two types of outputs:
 1. Cleaned Crawl Data
 Saved as cleaned_documents.json:
 
-```text
+```python
 {
     "doc_id": "...",
     "source": "...",
