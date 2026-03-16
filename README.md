@@ -1,57 +1,57 @@
-📚 RAG Data Pipeline (Data Collection & Preprocessing)
+![Python](https://img.shields.io/badge/python-3.10-blue)
+![RAG](https://img.shields.io/badge/AI-RAG-green)
+![Jetson](https://img.shields.io/badge/NVIDIA-Jetson-orange)
 
+# 📚 RAG Data Pipeline (Data Collection & Preprocessing)
+---
     This module implements the data ingestion and preprocessing pipeline for a Retrieval-Augmented Generation (RAG) system deployed on NVIDIA Jetson.
 
     The pipeline collects documents from multiple sources, cleans the text, splits it into chunks, and prepares the data for embedding and vector database indexing.
 
     This repository contains the implementation of the first two stages of the RAG pipeline.
 
-🧠 RAG System Architecture
+# 🧠 RAG System Architecture
+---
+The full system consists of three main phases:
+| Phase | Components |
+|------|------|
+| **OFFLINE PHASE (Build)** | Data Collection → Preprocessing → Embedding + Vector DB |
+| **ONLINE PHASE (Serve)** | Retriever → Prompt + LLM → API + UI |
+| **QUALITY PHASE (Evaluation)** | Evaluation → Feedback Loop |
 
-    The full system consists of three main phases:
-        OFFLINE PHASE (Build)
-            1. Data Collection
-            2. Preprocessing & Chunking
-            3. Embedding + Vector DB
+This repository implements:
+    Stage 1 → Data Collection
+    Stage 2 → Preprocessing & Chunking
 
-        ONLINE PHASE (Serve)
-            4. Retriever
-            5. Prompt + LLM
-            6. API + UI
+# 🏗 Pipeline Flow
+---
+The implemented pipeline works as follows:
+Input Source
+     │
+     ▼
+Loader / Crawler
+(WebLoader / PDFLoader / TextLoader / MarkdownLoader)
+     │
+     ▼
+RawDocument
+     │
+     ▼
+Cleaner
+(Text normalization & cleaning)
+     │
+     ▼
+Chunker
+(Text splitting)
+     │
+     ▼
+Chunk Objects
+     │
+     ▼
+LangChain Document
+(Ready for embedding)
 
-        QUALITY PHASE (Evaluation)
-            7. Evaluation
-            8. Feedback Loop
-
-    This repository implements:
-        Stage 1 → Data Collection
-        Stage 2 → Preprocessing & Chunking
-
-🏗 Pipeline Flow
-
-    The implemented pipeline works as follows:
-        Input Source
-            │
-            ▼
-        Loader / Crawler (WebLoader / PDFLoader / TextLoader / MarkdownLoader)
-            │
-            ▼
-        RawDocument
-            │
-            ▼
-        Cleaner (Text normalization & cleaning)
-            │
-            ▼
-        Chunker (Text splitting)
-            │
-            ▼
-        Chunk Objects
-            │
-            ▼
-        LangChain Document (Ready for embedding)
-
-📂 Project Structure
-
+# 📂 Project Structure
+---
     LLM_JETSON/
     │
     ├── loaders/
@@ -72,8 +72,8 @@
     ├── raw_documents.json
     └── README.md
 
-📥 Data Collection
-
+# 📥 Data Collection
+---
     The system supports multiple data sources for building the knowledge base.
 
     Supported Inputs:
@@ -84,8 +84,8 @@
 
     All input sources are converted into a unified internal structure called RawDocument.
 
-📄 RawDocument Structure
-
+# 📄 RawDocument Structure
+---
     Each document is stored in the following format:
         {
             "doc_id": "...",
@@ -99,8 +99,8 @@
             }
         }
 
-🌐 Web Crawler
-
+# 🌐 Web Crawler
+---
     The WebLoader implements a Breadth-First Search (BFS) crawler to extract documents from a website.
 
     Features
@@ -113,15 +113,15 @@
 
     If the crawler encounters file links such as PDF, TXT or Markdown it will automatically delegate the loading process to the corresponding file loader.
 
-📑 File Loaders
-    
+# 📑 File Loaders
+---
     PDFLoader
     TextLoader
     MarkdownLoader
     -> Extract content and output RawDocument object
 
-🧹 Text Cleaning
-
+# 🧹 Text Cleaning
+---
     Before the chunking stage, all documents are cleaned using the Cleaner module.
 
     Cleaning Steps:
@@ -129,8 +129,8 @@
         2. Remove HTML Noise
         3. Whitespace Normalization
 
-✂️ Chunking
-
+# ✂️ Chunking
+---
     After cleaning, documents are split into smaller segments using the Chunker.
 
     Example Configuration:
@@ -148,8 +148,8 @@
 
     Each chunk is then converted into a LangChain Document object.
 
-🚀 Running the Pipeline
-
+# 🚀 Running the Pipeline
+---
     The entire pipeline can be executed with:
         python main.py
 
@@ -168,8 +168,8 @@
 
         print(len(documents))
 
-📤 Output
-
+# 📤 Output
+---
     The pipeline produces two types of outputs:
 
     1. Cleaned Crawl Data (Saved as cleaned_documents.json):
