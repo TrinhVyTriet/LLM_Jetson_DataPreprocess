@@ -93,16 +93,16 @@ All input sources are converted into a unified internal structure called `RawDoc
 ---
 Each document is stored in the following format:
 
-```text
+```python
 {
-    "doc_id": "...",
-    "source": "...",
-    "title": "...",
-    "content": "...",
-    "metadata": {
-        "date": "...",
-        "language": "...",
-        "type": "web/pdf/text/markdown"
+    doc_id: "...",
+    source: "...",
+    title: "...",
+    content: "...",
+    metadata: {
+        date: "...",
+        language: "...",
+        type: "web/pdf/text/markdown"
     }
 }
 ```
@@ -165,11 +165,11 @@ Chunk Structure:
 
 ```python
     Chunk (
-        doc_id
-        chunk_id
-        chunk_index
-        content
-        metadata
+        doc_id: "...",
+        chunk_id: "...",
+        chunk_index: int,
+        content: "...",
+        metadata {...}
     )
 ```
 
@@ -210,11 +210,15 @@ Saved as cleaned_documents.json:
 
 ```python
 {
-    "doc_id": "...",
-    "source": "...",
-    "title": "...",
-    "content": "...",
-    "metadata": {...}
+    doc_id: "...",
+    source: "...",
+    title: "...",
+    content: "...",
+    metadata: {
+        date: "...",
+        language: "...",
+        type: "web/pdf/text/markdown"
+    }
 }
 ```
 
