@@ -205,7 +205,7 @@ print(len(documents))
 ---
 The pipeline produces two types of outputs:
 
-1. Cleaned Crawl Data
+### 1. Cleaned Crawl Data
 Saved as cleaned_documents.json:
 
 ```python
@@ -218,7 +218,7 @@ Saved as cleaned_documents.json:
 }
 ```
 
-2. Chunk Documents
+### 2. Chunk Documents
 A list of LangChain Documents, ready for:
 
 ```text

@@ -21,7 +21,7 @@ def main():
         input_path_or_url=input_source,
         cleaner=cleaner,
         chunker=chunker,
-        save_raw=True
+        save_cleaned=True
     )
 
     # In kết quả
