@@ -71,7 +71,9 @@ LangChain Document (Ready for embedding)
     ├── pipeline.py
     ├── main.py
     │
-    ├── raw_documents.json
+    ├── cleaned_documents.json
+    ├── .gitignore
+    ├── requirements.txt
     └── README.md
 
 ## 📥 Data Collection
