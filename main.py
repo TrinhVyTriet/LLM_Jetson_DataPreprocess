@@ -4,7 +4,7 @@ from chunker import Chunker
 
 def main():
     # Nguồn dữ liệu đầu vào
-    input_source = "https://toanmath.com/chuyen-de-toan-12"
+    input_source = "https://toanmath.com/2024/02/sach-giao-khoa-toan-12-tap-1-ket-noi-tri-thuc-voi-cuoc-song.html"
 
     # Khởi tạo các component
     cleaner = DocumentCleaner()

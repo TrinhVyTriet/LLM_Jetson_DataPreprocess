@@ -40,7 +40,7 @@ class Chunker:
                 source=doc.source,
                 title=doc.title,
 
-                metadata=doc.metadata.copy() #metadate của chunk lúc này gồm date, language, type của doc
+                metadata=doc.metadata.copy() # metadata của chunk lúc này gồm date, language, type của doc
             )
 
             chunks.append(chunk)
